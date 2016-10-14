@@ -7,8 +7,6 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Unique;
 
-import java.util.ArrayList;
-
 @Entity(active = true, nameInDb = "SWORN_MEMBERS")
 public class SwornMember {
 
@@ -23,8 +21,8 @@ public class SwornMember {
     private String name;
     private String born;
     private String died;
-    private ArrayList<String> titles;
-    private ArrayList<String> aliases;
+    private String titles;
+    private String aliases;
     private String father;
     private String mother;
     private String words;
@@ -91,19 +89,19 @@ public class SwornMember {
         this.died = died;
     }
 
-    public ArrayList<String> getTitles() {
+    public String getTitles() {
         return titles;
     }
 
-    public void setTitles(ArrayList<String> titles) {
+    public void setTitles(String titles) {
         this.titles = titles;
     }
 
-    public ArrayList<String> getAliases() {
+    public String getAliases() {
         return aliases;
     }
 
-    public void setAliases(ArrayList<String> aliases) {
+    public void setAliases(String aliases) {
         this.aliases = aliases;
     }
 

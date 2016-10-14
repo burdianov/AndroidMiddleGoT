@@ -56,12 +56,22 @@ public class SwornMemberModelRes {
         return died;
     }
 
-    public ArrayList<String> getTitles() {
-        return titles;
+    public String getTitles() {
+        String result = "";
+
+        for (String title : titles) {
+            result += " " + title;
+        }
+        return result;
     }
 
-    public ArrayList<String> getAliases() {
-        return aliases;
+    public String getAliases() {
+        String result = "";
+
+        for (String alias : aliases) {
+            result += " " + alias;
+        }
+        return result;
     }
 
     public String getFather() {
