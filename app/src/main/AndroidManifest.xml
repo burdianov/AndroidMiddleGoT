@@ -15,7 +15,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.SwornMemberActivity">
+        <activity
+            android:name=".ui.activities.SwornMemberActivity"
+            android:parentActivityName=".ui.activities.MainActivity">
         </activity>
     </application>
 
