@@ -8,7 +8,6 @@ import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Unique;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Entity(active = true, nameInDb = "SWORN_MEMBERS")
 public class SwornMember {
@@ -45,7 +44,7 @@ public class SwornMember {
     }
 
     public Long getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Long id) {
@@ -61,7 +60,7 @@ public class SwornMember {
     }
 
     public String getHouseRemoteId() {
-        return this.houseRemoteId;
+        return houseRemoteId;
     }
 
     public void setHouseRemoteId(String houseRemoteId) {
@@ -69,7 +68,7 @@ public class SwornMember {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -80,27 +79,55 @@ public class SwornMember {
         return born;
     }
 
+    public void setBorn(String born) {
+        this.born = born;
+    }
+
     public String getDied() {
         return died;
     }
 
-    public List<String> getTitles() {
+    public void setDied(String died) {
+        this.died = died;
+    }
+
+    public ArrayList<String> getTitles() {
         return titles;
     }
 
-    public List<String> getAliases() {
+    public void setTitles(ArrayList<String> titles) {
+        this.titles = titles;
+    }
+
+    public ArrayList<String> getAliases() {
         return aliases;
+    }
+
+    public void setAliases(ArrayList<String> aliases) {
+        this.aliases = aliases;
     }
 
     public String getFather() {
         return father;
     }
 
+    public void setFather(String father) {
+        this.father = father;
+    }
+
     public String getMother() {
         return mother;
     }
 
+    public void setMother(String mother) {
+        this.mother = mother;
+    }
+
     public String getWords() {
         return words;
+    }
+
+    public void setWords(String words) {
+        this.words = words;
     }
 }
