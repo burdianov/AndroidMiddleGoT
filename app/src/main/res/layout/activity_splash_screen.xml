@@ -11,11 +11,5 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.testography.androidmiddlegot.ui.activities.SplashScreenActivity">
 
-    <Button
-        android:layout_centerVertical="true"
-        android:id="@+id/go_to_btn"
-        android:text="Go to main activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

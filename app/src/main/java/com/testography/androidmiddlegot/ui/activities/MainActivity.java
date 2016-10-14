@@ -3,7 +3,6 @@ package com.testography.androidmiddlegot.ui.activities;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 
 import com.testography.androidmiddlegot.R;
@@ -13,7 +12,7 @@ import com.testography.androidmiddlegot.ui.fragments.HouseOneFragment;
 import com.testography.androidmiddlegot.ui.fragments.HouseThreeFragment;
 import com.testography.androidmiddlegot.ui.fragments.HouseTwoFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;

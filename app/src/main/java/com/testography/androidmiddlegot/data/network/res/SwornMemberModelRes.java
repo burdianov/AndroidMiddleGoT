@@ -59,8 +59,10 @@ public class SwornMemberModelRes {
     public String getTitles() {
         String result = "";
 
-        for (String title : titles) {
-            result += " " + title;
+        if (titles != null) {
+            for (String title : titles) {
+                result += " " + title;
+            }
         }
         return result;
     }
@@ -68,8 +70,10 @@ public class SwornMemberModelRes {
     public String getAliases() {
         String result = "";
 
-        for (String alias : aliases) {
-            result += " " + alias;
+        if (aliases != null) {
+            for (String alias : aliases) {
+                result += " " + alias;
+            }
         }
         return result;
     }

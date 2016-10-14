@@ -2,15 +2,19 @@ package com.testography.androidmiddlegot.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
 import com.testography.androidmiddlegot.R;
 import com.testography.androidmiddlegot.data.managers.DataManager;
 import com.testography.androidmiddlegot.data.network.res.HouseModelRes;
 import com.testography.androidmiddlegot.data.network.res.SwornMemberModelRes;
+import com.testography.androidmiddlegot.data.storage.models.House;
+import com.testography.androidmiddlegot.data.storage.models.HouseDao;
+import com.testography.androidmiddlegot.data.storage.models.SwornMember;
+import com.testography.androidmiddlegot.data.storage.models.SwornMemberDao;
+import com.testography.androidmiddlegot.utils.AppConfig;
 import com.testography.androidmiddlegot.utils.NetworkStatusChecker;
 import com.testography.androidmiddlegot.utils.Utils;
 
@@ -23,10 +27,12 @@ import retrofit2.Response;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    private Button mGoToButton;
     private DataManager mDataManager;
     private List<String> mSwornMembersUri;
     private List<Integer> mSwornMembersId;
+
+    private HouseDao mHouseDao;
+    private SwornMemberDao mSwornMemberDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,24 +41,9 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         mDataManager = DataManager.getInstance();
 
-        mGoToButton = (Button) findViewById(R.id.go_to_btn);
+        mHouseDao = mDataManager.getDaoSession().getHouseDao();
+        mSwornMemberDao = mDataManager.getDaoSession().getSwornMemberDao();
 
-        mGoToButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SplashScreenActivity.this,
-                        MainActivity.class);
-
-                ArrayList<String> testData = new ArrayList<>();
-//                testData.add("Vasilica");
-//                testData.add("Petrica");
-//                testData.add("Jorica");
-
-                intent.putExtra("test", testData);
-                startActivity(intent);
-                finish();
-            }
-        });
 
         loadHouses();
     }
@@ -67,6 +58,9 @@ public class SplashScreenActivity extends AppCompatActivity {
                     try {
                         if (response.code() == 200) {
                             HouseModelRes houseModelRes = response.body();
+
+                            House house = new House(houseModelRes);
+                            mHouseDao.insertOrReplace(house);
 
                             int houseId = Utils.getIdFromUri(houseModelRes.getId());
                             String words = houseModelRes.getWords();
@@ -89,28 +83,44 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
     }
 
-    private void fetchSwornMembers(List<Integer> swornMembersId, int houseId,
-                                   String words) {
-        for (Integer id : swornMembersId) {
-            Call<SwornMemberModelRes> call = mDataManager.getSwornMemberFromNetwork(id);
+    private void fetchSwornMembers(final List<Integer> swornMembersId, final int
+            houseId, final String words) {
 
-            call.enqueue(new Callback<SwornMemberModelRes>() {
-                @Override
-                public void onResponse(Call<SwornMemberModelRes> call, Response<SwornMemberModelRes> response) {
-                    try {
-                        SwornMemberModelRes swornMemberModelRes = response.body();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
-                    } catch (NullPointerException e) {
-                        Log.e("Fetch SwornMember error", e.toString());
-                    }
+                for (Integer id : swornMembersId) {
+                    Call<SwornMemberModelRes> call = mDataManager.getSwornMemberFromNetwork(id);
+
+                    call.enqueue(new Callback<SwornMemberModelRes>() {
+                        @Override
+                        public void onResponse(Call<SwornMemberModelRes> call, Response<SwornMemberModelRes> response) {
+                            try {
+                                SwornMemberModelRes swornMemberModelRes = response.body();
+                                SwornMember swornMember = new SwornMember
+                                        (swornMemberModelRes, houseId, words);
+
+                                mSwornMemberDao.insertOrReplace(swornMember);
+                            } catch (NullPointerException e) {
+                                Log.e("Fetch SwornMember error", e.toString());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<SwornMemberModelRes> call, Throwable t) {
+                            // TODO: Handle the error
+                        }
+                    });
                 }
+                Intent intent = new Intent(SplashScreenActivity.this,
+                        MainActivity.class);
+                startActivity(intent);
+                finish();
 
-                @Override
-                public void onFailure(Call<SwornMemberModelRes> call, Throwable t) {
-
-                }
-            });
-        }
+            }
+        }, AppConfig.START_DELAY);
     }
 
 
