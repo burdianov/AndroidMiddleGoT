@@ -12,6 +12,16 @@ buildscript {
     }
 }
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.0'
+    }
+}
+
 allprojects {
     repositories {
         jcenter()
