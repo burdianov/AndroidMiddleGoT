@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import com.testography.androidmiddlegot.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SwornMemberModelRes {
 
@@ -27,11 +26,11 @@ public class SwornMemberModelRes {
 
     @SerializedName("titles")
     @Expose
-    private List<String> titles = new ArrayList<>();
+    private ArrayList<String> titles = new ArrayList<>();
 
     @SerializedName("aliases")
     @Expose
-    private List<String> aliases = new ArrayList<>();
+    private ArrayList<String> aliases = new ArrayList<>();
 
     @SerializedName("father")
     @Expose
@@ -57,11 +56,11 @@ public class SwornMemberModelRes {
         return died;
     }
 
-    public List<String> getTitles() {
+    public ArrayList<String> getTitles() {
         return titles;
     }
 
-    public List<String> getAliases() {
+    public ArrayList<String> getAliases() {
         return aliases;
     }
 

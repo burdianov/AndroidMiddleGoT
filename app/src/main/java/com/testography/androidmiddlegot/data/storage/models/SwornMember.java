@@ -7,6 +7,7 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Unique;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(active = true, nameInDb = "SWORN_MEMBERS")
@@ -23,8 +24,8 @@ public class SwornMember {
     private String name;
     private String born;
     private String died;
-    private List<String> titles;
-    private List<String> aliases;
+    private ArrayList<String> titles;
+    private ArrayList<String> aliases;
     private String father;
     private String mother;
     private String words;
