@@ -36,15 +36,14 @@ public class SwornMembersAdapter extends RecyclerView.Adapter<SwornMembersAdapte
 
     @Override
     public void onBindViewHolder(final SwornMembersAdapter.SwornMemberViewHolder holder, int position) {
-//        holder.mSwornMemberName.setText(mSwornMembers.get(position));
-        holder.mSwornMemberName.setText("SWORN MEMBER NAME");
+        holder.mSwornMemberName.setText(mSwornMembers.get(position));
+//        holder.mSwornMemberName.setText("SWORN MEMBER NAME");
         holder.mInfo.setText("test info info info");
     }
 
     @Override
     public int getItemCount() {
-        return 5;
-//        return mSwornMembers.size();
+        return mSwornMembers.size();
     }
 
     public static class SwornMemberViewHolder extends RecyclerView.ViewHolder
