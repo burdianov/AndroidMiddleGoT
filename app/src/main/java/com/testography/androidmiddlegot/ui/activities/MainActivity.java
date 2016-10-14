@@ -1,7 +1,9 @@
-package com.testography.androidmiddlegot;
+package com.testography.androidmiddlegot.ui.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import com.testography.androidmiddlegot.R;
 
 public class MainActivity extends AppCompatActivity {
 
