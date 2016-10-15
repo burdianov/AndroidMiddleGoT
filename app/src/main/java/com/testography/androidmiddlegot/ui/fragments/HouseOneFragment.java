@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import com.testography.androidmiddlegot.data.storage.models.SwornMember;
 import com.testography.androidmiddlegot.data.storage.models.SwornMemberDao;
 import com.testography.androidmiddlegot.ui.activities.MainActivity;
 import com.testography.androidmiddlegot.ui.adapters.SwornMembersAdapter;
+import com.testography.androidmiddlegot.utils.ConstantsManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,11 +59,11 @@ public class HouseOneFragment extends Fragment {
 
         List<String> names = new ArrayList<>();
 
-        List<SwornMember> membersList = getSwornMembersFromDb("40");
+        List<SwornMember> membersList = getSwornMembersFromDb(String
+                .valueOf(ConstantsManager.houseOne));
 
         for (SwornMember member :
                 membersList) {
-            Log.e("777777777777777777", member.getName());
             names.add(member.getName());
         }
 

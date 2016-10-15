@@ -3,7 +3,6 @@ package com.testography.androidmiddlegot.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.testography.androidmiddlegot.R;
@@ -15,6 +14,7 @@ import com.testography.androidmiddlegot.data.storage.models.HouseDao;
 import com.testography.androidmiddlegot.data.storage.models.SwornMember;
 import com.testography.androidmiddlegot.data.storage.models.SwornMemberDao;
 import com.testography.androidmiddlegot.utils.AppConfig;
+import com.testography.androidmiddlegot.utils.ConstantsManager;
 import com.testography.androidmiddlegot.utils.NetworkStatusChecker;
 import com.testography.androidmiddlegot.utils.Utils;
 
@@ -25,14 +25,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SplashScreenActivity extends AppCompatActivity {
+public class SplashScreenActivity extends BaseActivity {
 
     private DataManager mDataManager;
+
     private List<String> mSwornMembersUri;
     private List<Integer> mSwornMembersId;
 
     private HouseDao mHouseDao;
     private SwornMemberDao mSwornMemberDao;
+    private int mTimes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +42,18 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         mDataManager = DataManager.getInstance();
-
+        mTimes = 0;
         mHouseDao = mDataManager.getDaoSession().getHouseDao();
         mSwornMemberDao = mDataManager.getDaoSession().getSwornMemberDao();
-
-
-        loadHouses();
+        showProgress();
+        loadHouses(ConstantsManager.houseOne);
+        loadHouses(ConstantsManager.houseTwo);
+        loadHouses(ConstantsManager.houseThree);
     }
 
-    private void loadHouses() {
+    private void loadHouses(int houseId) {
         if (NetworkStatusChecker.isNetworkAvailable(this)) {
-            Call<HouseModelRes> call = mDataManager.getHouseFromNetwork(40);
+            Call<HouseModelRes> call = mDataManager.getHouseFromNetwork(houseId);
 
             call.enqueue(new Callback<HouseModelRes>() {
                 @Override
@@ -65,10 +68,12 @@ public class SplashScreenActivity extends AppCompatActivity {
                             int houseId = Utils.getIdFromUri(houseModelRes.getId());
                             String words = houseModelRes.getWords();
 
-                            mSwornMembersUri = houseModelRes.getSwornMembers();
-                            mSwornMembersId = getSwornMembersIdFromUri(mSwornMembersUri);
+//                            mSwornMembersUri = houseModelRes.getSwornMembers();
+//                            mSwornMembersId = getSwornMembersIdFromUri(mSwornMembersUri);
 
-                            fetchSwornMembers(mSwornMembersId, houseId, words);
+                            fetchSwornMembers(getSwornMembersIdFromUri
+                                    (houseModelRes.getSwornMembers()), houseId, words);
+//                            fetchSwornMembers(mSwornMembersId, houseId, words);
                         }
                     } catch (NullPointerException e) {
                         Log.e("Retrofit error: ", e.toString());
@@ -114,11 +119,15 @@ public class SplashScreenActivity extends AppCompatActivity {
                         }
                     });
                 }
-                Intent intent = new Intent(SplashScreenActivity.this,
-                        MainActivity.class);
-                startActivity(intent);
-                finish();
 
+                mTimes++;
+                if (mTimes == 3) {
+                    Intent intent = new Intent(SplashScreenActivity.this,
+                            MainActivity.class);
+                    startActivity(intent);
+                    hideProgress();
+                    finish();
+                }
             }
         }, AppConfig.START_DELAY);
     }

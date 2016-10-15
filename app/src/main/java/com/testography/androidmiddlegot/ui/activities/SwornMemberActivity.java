@@ -3,13 +3,12 @@ package com.testography.androidmiddlegot.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.testography.androidmiddlegot.R;
 
-public class SwornMemberActivity extends AppCompatActivity {
+public class SwornMemberActivity extends BaseActivity {
 
     private Toolbar mToolbar;
     private TextView mTextView;
