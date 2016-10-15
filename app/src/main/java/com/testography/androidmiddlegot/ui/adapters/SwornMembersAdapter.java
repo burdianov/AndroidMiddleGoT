@@ -19,10 +19,14 @@ public class SwornMembersAdapter extends RecyclerView.Adapter<SwornMembersAdapte
 
     private MainActivity mMainActivity;
     private List<String> mSwornMembers;
+    private List<String> mRemoteIds;
 
-    public SwornMembersAdapter(MainActivity mainActivity, List<String> swornMembers) {
+    public SwornMembersAdapter(MainActivity mainActivity, List<String>
+            swornMembers, List<String> remoteIds) {
+
         mMainActivity = mainActivity;
         mSwornMembers = swornMembers;
+        mRemoteIds = remoteIds;
     }
 
     @Override
@@ -38,6 +42,7 @@ public class SwornMembersAdapter extends RecyclerView.Adapter<SwornMembersAdapte
     public void onBindViewHolder(final SwornMembersAdapter.SwornMemberViewHolder holder, int position) {
         holder.mSwornMemberName.setText(mSwornMembers.get(position));
         holder.mInfo.setText("test info info info");
+        holder.remoteId = mRemoteIds.get(position);
     }
 
     @Override
@@ -52,6 +57,7 @@ public class SwornMembersAdapter extends RecyclerView.Adapter<SwornMembersAdapte
         private TextView mSwornMemberName;
         private TextView mInfo;
         private ImageView mHouseLogo;
+        private String remoteId;
 
         public SwornMemberViewHolder(View itemView, MainActivity mainActivity) {
             super(itemView);
@@ -67,7 +73,7 @@ public class SwornMembersAdapter extends RecyclerView.Adapter<SwornMembersAdapte
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(mActivity, SwornMemberActivity.class);
-            intent.putExtra("name", "This is a message from the fragment");
+            intent.putExtra("remoteId", remoteId);
             mActivity.startActivity(intent);
         }
     }

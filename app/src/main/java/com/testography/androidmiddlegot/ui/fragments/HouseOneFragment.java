@@ -27,10 +27,7 @@ public class HouseOneFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private SwornMembersAdapter mSwornMembersAdapter;
 
-    private DataManager mDataManager;
-
     private DaoSession mDaoSession;
-    private SwornMemberDao mSwornMemberDao;
 
     public HouseOneFragment() {
 
@@ -48,9 +45,7 @@ public class HouseOneFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_house_one, container,
                 false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_one);
-        mDataManager = DataManager.getInstance();
 
-        mSwornMemberDao = mDataManager.getDaoSession().getSwornMemberDao();
         mDaoSession = DataManager.getInstance().getDaoSession();
 
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -58,6 +53,7 @@ public class HouseOneFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         List<String> names = new ArrayList<>();
+        List<String> remoteIds = new ArrayList<>();
 
         List<SwornMember> membersList = getSwornMembersFromDb(String
                 .valueOf(ConstantsManager.houseOne));
@@ -65,10 +61,11 @@ public class HouseOneFragment extends Fragment {
         for (SwornMember member :
                 membersList) {
             names.add(member.getName());
+            remoteIds.add(member.getRemoteId());
         }
 
         mSwornMembersAdapter = new SwornMembersAdapter((MainActivity) getActivity(),
-                names);
+                names, remoteIds);
         mRecyclerView.setAdapter(mSwornMembersAdapter);
 
         return rootView;

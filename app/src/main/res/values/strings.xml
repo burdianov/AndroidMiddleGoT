@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AndroidMiddleGoT</string>
+    <string name="label_father">Father:</string>
+    <string name="label_mother">Mother:</string>
 </resources>
