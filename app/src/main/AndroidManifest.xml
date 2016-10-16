@@ -25,7 +25,9 @@
             android:name=".ui.activities.SwornMemberActivity"
             android:parentActivityName=".ui.activities.MainActivity">
         </activity>
-        <activity android:name=".ui.activities.SplashScreenActivity">
+        <activity
+            android:name=".ui.activities.SplashScreenActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

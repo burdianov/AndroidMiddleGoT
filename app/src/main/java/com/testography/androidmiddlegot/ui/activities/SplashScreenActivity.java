@@ -3,8 +3,6 @@ package com.testography.androidmiddlegot.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
 import com.testography.androidmiddlegot.R;
 import com.testography.androidmiddlegot.data.managers.DataManager;
@@ -14,6 +12,7 @@ import com.testography.androidmiddlegot.data.storage.models.House;
 import com.testography.androidmiddlegot.data.storage.models.HouseDao;
 import com.testography.androidmiddlegot.data.storage.models.SwornMember;
 import com.testography.androidmiddlegot.data.storage.models.SwornMemberDao;
+import com.testography.androidmiddlegot.utils.ConstantsManager;
 import com.testography.androidmiddlegot.utils.NetworkStatusChecker;
 import com.testography.androidmiddlegot.utils.Utils;
 
@@ -34,13 +33,14 @@ public class SplashScreenActivity extends BaseActivity {
     private SwornMemberDao mSwornMemberDao;
     private int mTimes;
 
-    private Button mGoButton;
+    private int numberOfSessions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        numberOfSessions = 0;
 //        mSplashImage = (ImageView) findViewById(R.id.splash_img);
 
 //        Picasso.with(this)
@@ -49,17 +49,6 @@ public class SplashScreenActivity extends BaseActivity {
 ////                .fit()
 //                .into(mSplashImage);
 
-        mGoButton = (Button) findViewById(R.id.go_btn);
-        mGoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SplashScreenActivity.this,
-                        MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
         mDataManager = DataManager.getInstance();
         mTimes = 0;
         mHouseDao = mDataManager.getDaoSession().getHouseDao();
@@ -67,15 +56,15 @@ public class SplashScreenActivity extends BaseActivity {
 
 //        showProgress();
 
-//        loadHouses(ConstantsManager.houseOne);
-//        loadHouses(ConstantsManager.houseTwo);
-//        loadHouses(ConstantsManager.houseThree);
+        loadHouse(ConstantsManager.houseOne);
+        loadHouse(ConstantsManager.houseTwo);
+        loadHouse(ConstantsManager.houseThree);
     }
 
-    private void loadHouses(int houseId) {
+    private void loadHouse(int houseId) {
         if (NetworkStatusChecker.isNetworkAvailable(this)) {
             Call<HouseModelRes> call = mDataManager.getHouseFromNetwork(houseId);
-
+            numberOfSessions++;
             call.enqueue(new Callback<HouseModelRes>() {
                 @Override
                 public void onResponse(Call<HouseModelRes> call, Response<HouseModelRes> response) {
@@ -91,6 +80,8 @@ public class SplashScreenActivity extends BaseActivity {
 
                             fetchSwornMembers(getSwornMembersIdFromUri
                                     (houseModelRes.getSwornMembers()), houseId, words);
+
+                            launchMainActivity();
                         }
                     } catch (NullPointerException e) {
                         Log.e("Retrofit error: ", e.toString());
@@ -115,21 +106,23 @@ public class SplashScreenActivity extends BaseActivity {
 
         for (Integer id : swornMembersId) {
             Call<SwornMemberModelRes> call = mDataManager.getSwornMemberFromNetwork(id);
-
+            numberOfSessions++;
             call.enqueue(new Callback<SwornMemberModelRes>() {
                 @Override
                 public void onResponse(Call<SwornMemberModelRes> call, Response<SwornMemberModelRes> response) {
                     try {
-                        SwornMemberModelRes swornMemberModelRes = response.body();
-                        SwornMember swornMember = new SwornMember
-                                (swornMemberModelRes, houseId, words);
+                        if (response.code() == 200) {
+                            SwornMemberModelRes swornMemberModelRes = response.body();
+                            SwornMember swornMember = new SwornMember
+                                    (swornMemberModelRes, houseId, words);
 
-                        mSwornMemberDao.insertOrReplace(swornMember);
+                            mSwornMemberDao.insertOrReplace(swornMember);
+                            launchMainActivity();
+                        }
                     } catch (NullPointerException e) {
                         Log.e("Fetch SwornMember error", e.toString());
                     }
                 }
-
                 @Override
                 public void onFailure(Call<SwornMemberModelRes> call, Throwable t) {
                     // TODO: Handle the error
@@ -158,5 +151,17 @@ public class SplashScreenActivity extends BaseActivity {
             result.add(Utils.getIdFromUri(uri));
         }
         return result;
+    }
+
+    public void launchMainActivity() {
+        Log.e("SSSSSSSSSSSSSSSs", "numberOfSessions: " + numberOfSessions);
+        numberOfSessions--;
+        if (numberOfSessions != 0) {
+            return;
+        }
+        Intent intent = new Intent(SplashScreenActivity.this,
+                MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
