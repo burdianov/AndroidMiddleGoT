@@ -1,10 +1,10 @@
 package com.testography.androidmiddlegot.ui.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.testography.androidmiddlegot.R;
 import com.testography.androidmiddlegot.data.managers.DataManager;
 import com.testography.androidmiddlegot.data.network.res.HouseModelRes;
 import com.testography.androidmiddlegot.data.network.res.SwornMemberModelRes;
@@ -12,6 +12,7 @@ import com.testography.androidmiddlegot.data.storage.models.House;
 import com.testography.androidmiddlegot.data.storage.models.HouseDao;
 import com.testography.androidmiddlegot.data.storage.models.SwornMember;
 import com.testography.androidmiddlegot.data.storage.models.SwornMemberDao;
+import com.testography.androidmiddlegot.utils.AppConfig;
 import com.testography.androidmiddlegot.utils.ConstantsManager;
 import com.testography.androidmiddlegot.utils.NetworkStatusChecker;
 import com.testography.androidmiddlegot.utils.Utils;
@@ -27,34 +28,24 @@ public class SplashScreenActivity extends BaseActivity {
 
     private DataManager mDataManager;
 
-//    private ImageView mSplashImage;
-
     private HouseDao mHouseDao;
     private SwornMemberDao mSwornMemberDao;
-    private int mTimes;
 
     private int numberOfSessions;
+    private boolean mIsDelayOver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
 
         numberOfSessions = 0;
-//        mSplashImage = (ImageView) findViewById(R.id.splash_img);
-
-//        Picasso.with(this)
-//                .load(R.drawable.splash)
-//                .resize(270, 480)
-////                .fit()
-//                .into(mSplashImage);
+        mIsDelayOver = false;
 
         mDataManager = DataManager.getInstance();
-        mTimes = 0;
         mHouseDao = mDataManager.getDaoSession().getHouseDao();
         mSwornMemberDao = mDataManager.getDaoSession().getSwornMemberDao();
 
-//        showProgress();
+        startPlannedDelay();
 
         loadHouse(ConstantsManager.houseOne);
         loadHouse(ConstantsManager.houseTwo);
@@ -99,11 +90,6 @@ public class SplashScreenActivity extends BaseActivity {
     private void fetchSwornMembers(final List<Integer> swornMembersId, final int
             houseId, final String words) {
 
-////        Handler handler = new Handler();
-////        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-
         for (Integer id : swornMembersId) {
             Call<SwornMemberModelRes> call = mDataManager.getSwornMemberFromNetwork(id);
             numberOfSessions++;
@@ -129,17 +115,6 @@ public class SplashScreenActivity extends BaseActivity {
                 }
             });
         }
-
-//                mTimes++;
-//                if (mTimes == 3) {
-//                    Intent intent = new Intent(SplashScreenActivity.this,
-//                            MainActivity.class);
-//                    startActivity(intent);
-//                    hideProgress();
-//                    finish();
-//                }
-//            }
-////        }, AppConfig.START_DELAY);
     }
 
 
@@ -154,14 +129,37 @@ public class SplashScreenActivity extends BaseActivity {
     }
 
     public void launchMainActivity() {
-        Log.e("SSSSSSSSSSSSSSSs", "numberOfSessions: " + numberOfSessions);
         numberOfSessions--;
-        if (numberOfSessions != 0) {
+        if (numberOfSessions != 0 || mIsDelayOver == false) {
             return;
         }
         Intent intent = new Intent(SplashScreenActivity.this,
                 MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void startPlannedDelay() {
+        new PlannedDelay().execute("");
+    }
+
+    private class PlannedDelay extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            numberOfSessions++;
+            try {
+                Thread.sleep(AppConfig.START_DELAY);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            mIsDelayOver = true;
+            launchMainActivity();
+        }
     }
 }
