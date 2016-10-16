@@ -1,6 +1,7 @@
 package com.testography.androidmiddlegot.ui.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +35,9 @@ public class SplashScreenActivity extends BaseActivity {
     private int numberOfSessions;
     private boolean mIsDelayOver;
 
+    SharedPreferences mSharedPreferences;
+    public static final String DB_AVAILABLE = "DB_AVAILABLE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +51,22 @@ public class SplashScreenActivity extends BaseActivity {
 
         startPlannedDelay();
 
-        loadHouse(ConstantsManager.houseOne);
-        loadHouse(ConstantsManager.houseTwo);
-        loadHouse(ConstantsManager.houseThree);
+        mSharedPreferences = getSharedPreferences
+                (DB_AVAILABLE, MODE_PRIVATE);
+        String dbStatus = mSharedPreferences.getString(DB_AVAILABLE, null);
+
+        if (dbStatus != null) {
+            numberOfSessions++;
+            launchMainActivity();
+        } else {
+            SharedPreferences.Editor editor = mSharedPreferences.edit();
+            editor.putString(DB_AVAILABLE, "DB_AVAILABLE");
+            editor.commit();
+
+            loadHouse(ConstantsManager.houseOne);
+            loadHouse(ConstantsManager.houseTwo);
+            loadHouse(ConstantsManager.houseThree);
+        }
     }
 
     private void loadHouse(int houseId) {
