@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="?android:attr/selectableItemBackground"
               android:clickable="true"
               android:orientation="vertical">
 
@@ -12,6 +11,7 @@
         android:background="@drawable/bottom_line">
 
         <ImageView
+            android:contentDescription="thumbnail"
             android:id="@+id/house_logo_iv"
             android:layout_width="@dimen/size_medium_56"
             android:layout_height="@dimen/size_medium_56"
@@ -31,7 +31,7 @@
             android:layout_marginRight="@dimen/spacing_normal_16"
             android:layout_toEndOf="@+id/house_logo_iv"
             android:layout_toRightOf="@+id/house_logo_iv"
-            android:text="Name"
+            android:text="@string/name"
             android:textStyle="bold"/>
 
         <TextView

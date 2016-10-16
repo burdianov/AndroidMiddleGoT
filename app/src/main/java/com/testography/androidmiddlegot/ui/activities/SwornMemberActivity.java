@@ -43,7 +43,7 @@ public class SwornMemberActivity extends BaseActivity {
 
         mDaoSession = DataManager.getInstance().getDaoSession();
 
-        mRemoteId = getIntent().getStringExtra("remoteId").toString();
+        mRemoteId = getIntent().getStringExtra("remoteId");
 
         mWords = (TextView) findViewById(R.id.words_content);
         mBorn = (TextView) findViewById(R.id.born_content);

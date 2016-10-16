@@ -19,6 +19,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
+                android:contentDescription="thumbnail"
                 android:id="@+id/expandedImage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_collapsed_image_320"
@@ -59,6 +60,7 @@
                 android:gravity="center_vertical">
 
                 <ImageView
+                    android:contentDescription="thumbnail"
                     android:id="@+id/words_iv"
                     android:layout_width="@dimen/size_small_16"
                     android:layout_height="@dimen/size_small_16"
@@ -91,6 +93,7 @@
                 android:gravity="center_vertical">
 
                 <ImageView
+                    android:contentDescription="thumbnail"
                     android:id="@+id/born_iv"
                     android:layout_width="@dimen/size_small_16"
                     android:layout_height="@dimen/size_small_16"
@@ -123,6 +126,7 @@
                 android:gravity="center_vertical">
 
                 <ImageView
+                    android:contentDescription="thumbnail"
                     android:id="@+id/titles_iv"
                     android:layout_width="@dimen/size_small_16"
                     android:layout_height="@dimen/size_small_16"
@@ -156,6 +160,7 @@
 
 
                 <ImageView
+                    android:contentDescription="thumbnail"
                     android:id="@+id/aliases_iv"
                     android:layout_width="@dimen/size_small_16"
                     android:layout_height="@dimen/size_small_16"
@@ -193,6 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/spacing_bigger_40"
+                    android:layout_marginStart="@dimen/spacing_bigger_40"
                     android:text="@string/label_father"
                     android:textStyle="bold"/>
 
@@ -202,6 +208,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/spacing_larger_96"
+                    android:layout_marginStart="@dimen/spacing_larger_96"
                     android:background="@color/color_primary"
                     android:paddingBottom="@dimen/spacing_tiny_4"
                     android:paddingLeft="@dimen/spacing_small_8"
@@ -221,6 +228,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/spacing_bigger_40"
+                    android:layout_marginStart="@dimen/spacing_bigger_40"
                     android:text="@string/label_mother"
                     android:textStyle="bold"/>
 
@@ -229,6 +237,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/spacing_larger_96"
+                    android:layout_marginStart="@dimen/spacing_larger_96"
                     android:background="@color/color_primary"
                     android:paddingBottom="@dimen/spacing_tiny_4"
                     android:paddingLeft="@dimen/spacing_small_8"

@@ -147,7 +147,7 @@ public class SplashScreenActivity extends BaseActivity {
 
     public void launchMainActivity() {
         numberOfSessions--;
-        if (numberOfSessions != 0 || mIsDelayOver == false) {
+        if (numberOfSessions != 0 || !mIsDelayOver) {
             return;
         }
         Intent intent = new Intent(SplashScreenActivity.this,
