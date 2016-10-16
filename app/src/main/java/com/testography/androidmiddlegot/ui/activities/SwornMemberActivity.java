@@ -19,8 +19,6 @@ import java.util.List;
 
 public class SwornMemberActivity extends BaseActivity {
 
-    private Toolbar mToolbar;
-
     private TextView mWords;
     private TextView mBorn;
     private TextView mTitles;
@@ -30,6 +28,7 @@ public class SwornMemberActivity extends BaseActivity {
     private String mRemoteId;
     private String mDied;
 
+    private Toolbar mToolbar;
     private CoordinatorLayout mCoordinatorLayout;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
     private DaoSession mDaoSession;
@@ -59,6 +58,13 @@ public class SwornMemberActivity extends BaseActivity {
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setupToolbar();
+        setCollapsingToolbarLayout();
+    }
+
+    private void setCollapsingToolbarLayout() {
+        mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
+        mCollapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style
+                .CollapsedAppBar);
     }
 
     private List<SwornMember> getSwornMemberFromDb() {
@@ -78,11 +84,9 @@ public class SwornMemberActivity extends BaseActivity {
     private void setContent() {
 
         SwornMember swornMember;
-
         swornMember = getSwornMemberFromDb().get(0);
 
         if (swornMember != null) {
-
             mWords.setText(setInfo(swornMember.getWords().trim()));
             mBorn.setText(setInfo(swornMember.getBorn().trim()));
             mTitles.setText(setInfo(swornMember.getTitles().trim()));

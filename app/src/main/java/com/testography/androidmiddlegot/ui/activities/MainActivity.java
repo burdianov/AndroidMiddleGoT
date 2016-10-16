@@ -24,7 +24,6 @@ public class MainActivity extends BaseActivity {
     private TabLayout mTabLayout;
     private DrawerLayout mNavigationDrawer;
     private Toolbar mToolbar;
-    private MenuItem mMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +92,6 @@ public class MainActivity extends BaseActivity {
                     case R.id.house_3:
                         mViewPager.setCurrentItem(2, true);
                         break;
-
                 }
                 mNavigationDrawer.closeDrawer(GravityCompat.START);
 

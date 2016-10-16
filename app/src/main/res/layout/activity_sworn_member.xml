@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_collapsed_image_320"
                 android:scaleType="centerCrop"
-                android:src="@drawable/house_one"
+                android:src="@drawable/house_placeholder"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.7"/>
 
@@ -31,7 +31,8 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin">
+                app:layout_collapseMode="pin"
+                app:theme="@style/ToolBarStyle">
 
             </android.support.v7.widget.Toolbar>
 
@@ -53,8 +54,8 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_medial_24"
                 android:layout_marginBottom="@dimen/spacing_normal_16"
+                android:layout_marginTop="@dimen/spacing_medial_24"
                 android:gravity="center_vertical">
 
                 <ImageView
@@ -67,11 +68,11 @@
 
                 <TextView
                     android:id="@+id/words_label"
-                    android:text="@string/words"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/spacing_bigger_40"
                     android:layout_marginStart="@dimen/spacing_bigger_40"
+                    android:text="@string/words"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -99,11 +100,11 @@
 
                 <TextView
                     android:id="@+id/born_label"
-                    android:text="@string/born"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/spacing_bigger_40"
                     android:layout_marginStart="@dimen/spacing_bigger_40"
+                    android:text="@string/born"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -131,11 +132,11 @@
 
                 <TextView
                     android:id="@+id/titles_label"
-                    android:text="@string/titles"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/spacing_bigger_40"
                     android:layout_marginStart="@dimen/spacing_bigger_40"
+                    android:text="@string/titles"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -164,11 +165,11 @@
 
                 <TextView
                     android:id="@+id/aliases_label"
-                    android:text="@string/aliases"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/spacing_bigger_40"
                     android:layout_marginStart="@dimen/spacing_bigger_40"
+                    android:text="@string/aliases"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -183,8 +184,8 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_normal_16"
                 android:layout_marginBottom="@dimen/spacing_normal_16"
+                android:layout_marginTop="@dimen/spacing_normal_16"
                 android:gravity="center_vertical">
 
                 <TextView
