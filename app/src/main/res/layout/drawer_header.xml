@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/spacing_small_8"
+        android:textSize="@dimen/font_medium_24"
+        android:textStyle="bold"
+        android:textColor="@color/color_accent"
+        android:text="@string/pick_a_house"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:background="@color/grey"
+        android:layout_marginTop="@dimen/spacing_small_8"
+        android:layout_marginBottom="@dimen/spacing_small_8"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_size_1"/>
+</LinearLayout>

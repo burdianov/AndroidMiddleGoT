@@ -41,7 +41,7 @@ public class SwornMembersAdapter extends RecyclerView.Adapter<SwornMembersAdapte
     @Override
     public void onBindViewHolder(final SwornMembersAdapter.SwornMemberViewHolder holder, int position) {
         holder.mSwornMemberName.setText(mSwornMembers.get(position));
-        holder.mInfo.setText("test info info info");
+        holder.mInfo.setText("Aliquam consectetur eleifend pharetra. Nunc pellentesque justo.");
         holder.remoteId = mRemoteIds.get(position);
     }
 
